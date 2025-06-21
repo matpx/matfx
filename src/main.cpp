@@ -53,6 +53,13 @@ int main() {
   spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%^%l%$] [%s:%#] %v");
 
   SPDLOG_INFO("MatFX application starting");
+  SPDLOG_DEBUG("debug mode enabled");
+
+#ifdef __AVX2__
+  SPDLOG_INFO("AVX2 support enabled");
+#else
+  SPDLOG_WARN("AVX2 support not available");
+#endif
 
   try {
     if (!run_engine()) {
