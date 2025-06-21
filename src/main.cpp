@@ -50,6 +50,8 @@ int main() {
   spdlog::set_level(spdlog::level::info);
 #endif
 
+  spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%^%l%$] [%s:%#] %v");
+
   SPDLOG_INFO("MatFX application starting");
 
   try {
