@@ -6,19 +6,19 @@
 
 #include <array>
 
-static void custom_sokol_logger(const char* tag, uint32_t log_level, uint32_t /* log_item_id */, const char* message, 
+static void custom_sokol_logger(const char* tag, uint32_t log_level, uint32_t /* log_item_id */, const char* message,
                                 uint32_t line_nr, const char* filename, void* /* user_data */) {
   switch (log_level) {
-    case 0: // panic
+    case 0:  // panic
       SPDLOG_CRITICAL("[{}:{}] {}: {}", filename, line_nr, tag, message);
       break;
-    case 1: // error
+    case 1:  // error
       SPDLOG_ERROR("[{}:{}] {}: {}", filename, line_nr, tag, message);
       break;
-    case 2: // warn
+    case 2:  // warn
       SPDLOG_WARN("[{}:{}] {}: {}", filename, line_nr, tag, message);
       break;
-    case 3: // info
+    case 3:  // info
       SPDLOG_INFO("[{}:{}] {}: {}", filename, line_nr, tag, message);
       break;
     default:
@@ -34,6 +34,7 @@ Renderer::~Renderer() { shutdown(); }
 bool Renderer::init() {
   int version = gladLoadGL();
   if (version == 0) {
+    SPDLOG_ERROR("Failed to load OpenGL with GLAD");
     return false;
   }
 
@@ -42,11 +43,13 @@ bool Renderer::init() {
   sg_setup(&desc);
 
   if (!sg_isvalid()) {
+    SPDLOG_ERROR("Failed to initialize Sokol GFX");
     return false;
   }
 
   setupTriangle();
   initialized_ = true;
+  SPDLOG_INFO("Renderer initialized successfully");
   return true;
 }
 

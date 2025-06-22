@@ -1,30 +1,21 @@
+#include <spdlog/spdlog.h>
+
 #include "renderer.h"
 #include "spdlog/common.h"
 #include "window.h"
-
-#define SOKOL_IMPL
-#define SOKOL_EXTERNAL_GL_LOADER
-#include <glad/glad.h>
-#include <sokol_gfx.h>
-#include <sokol_log.h>
-#include <spdlog/spdlog.h>
 
 static bool run_engine() {
   SPDLOG_INFO("Starting MatFX engine");
 
   Window window(800, 600, "MatFX");
   if (!window.init()) {
-    SPDLOG_ERROR("Failed to initialize window");
     return false;
   }
-  SPDLOG_INFO("Window initialized successfully");
 
   Renderer renderer;
   if (!renderer.init()) {
-    SPDLOG_ERROR("Failed to initialize renderer");
     return false;
   }
-  SPDLOG_INFO("Renderer initialized successfully");
 
   SPDLOG_INFO("Entering main loop");
   while (!window.shouldClose()) {

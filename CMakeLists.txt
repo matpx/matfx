@@ -38,6 +38,7 @@ add_executable(matfx
     src/main.cpp 
     src/window.cpp 
     src/renderer.cpp 
+    src/graphics_impl.cpp
     deps/glad/src/glad.c
     $<$<CONFIG:Debug>:${SPDLOG_SOURCES}>
 )
